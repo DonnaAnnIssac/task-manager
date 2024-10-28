@@ -16,6 +16,7 @@
   border-radius: 8px;
   border: solid 1px gray;
   padding: 20px;
+  width: 80%;
 }
 
 .task-manager-header {
@@ -36,8 +37,48 @@
 
 .task-manager-add-button {
   border: solid 1px;
+  border-radius: 5px;
+  padding: 5px 8px;
 }
 
 .tasks-list {
-  margin-top: 10px;
+  margin-top: 15px;
+}
+
+.tasks-filter {
+  display: flex;
+}
+
+.tasks-filter-select {
+  padding: 5px;
+  border: solid 1px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.tasks-view {
+  margin-top: 15px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tasks-view > li {
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tasks-view > li > button {
+  background-color: red;
+  color: white;
+  padding: 5px 8px;
+  border-radius: 5px;
+}
+
+.task-item {
+  display: flex;
+  gap: 5px;
 }

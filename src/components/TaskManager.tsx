@@ -68,28 +68,33 @@ const TaskManager = () => {
         </button>
       </div>
       <div className="tasks-list">
-        <select
-          value={filter}
-          onChange={(e) => setFilter(e.target.value as TaskStatus | "ALL")}
-        >
-          <option value="ALL">All</option>
-          <option value="IN_PROGRESS">In Progress</option>
-          <option value="DONE">Done</option>
-        </select>
-        {filteredTasks.map((task: Task) => (
-          <li key={task.id}>
-            <div>
-              <input
-                type="checkbox"
-                checked={task.status === "DONE"}
-                onChange={() => handleToggleTask(task.id, task.status)}
-              />
-              <span>{task.title}</span>
-              <span>{task.description}</span>
-            </div>
-            <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
-          </li>
-        ))}
+        <div className="tasks-filter">
+          <select
+            value={filter}
+            onChange={(e) => setFilter(e.target.value as TaskStatus | "ALL")}
+            className="tasks-filter-select"
+          >
+            <option value="ALL">All</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="DONE">Done</option>
+          </select>
+        </div>
+        <div className="tasks-view">
+          {filteredTasks.map((task: Task) => (
+            <li key={task.id}>
+              <div className="task-item">
+                <input
+                  type="checkbox"
+                  checked={task.status === "DONE" ? true : false}
+                  onChange={() => handleToggleTask(task.id, task.status)}
+                />
+                <span>{task.title}</span>
+                <span>{task.description}</span>
+              </div>
+              <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
+            </li>
+          ))}
+        </div>
       </div>
     </div>
   );
