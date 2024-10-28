@@ -1,7 +1,13 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { Task, TaskContent } from "../types";
+import axios from "axios";
 
 const initialState: Task[] = [];
+
+export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
+  const response = await axios.get("/tasks.json");
+  return response.data as Task[];
+});
 
 const taskSlice = createSlice({
   name: "tasks",
@@ -31,6 +37,11 @@ const taskSlice = createSlice({
           action.payload.status === "IN_PROGRESS" ? "DONE" : "IN_PROGRESS";
       }
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchTasks.fulfilled, (state, action) => {
+      return action.payload;
+    });
   },
 });
 

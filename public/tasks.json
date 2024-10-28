@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "Task 1",
+    "description": "Send emails",
+    "status": "IN_PROGRESS"
+  },
+  {
+    "id": 1,
+    "title": "Task 2",
+    "description": "Raise PR",
+    "status": "DONE"
+  },
+  {
+    "id": 1,
+    "title": "Task 3",
+    "description": "Review PRs",
+    "status": "IN_PROGRESS"
+  }
+]

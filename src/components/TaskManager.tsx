@@ -1,19 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTask, deleteTask, toggleTask } from "../store/taskSlice";
+import {
+  addTask,
+  deleteTask,
+  toggleTask,
+  fetchTasks,
+} from "../store/taskSlice";
 import { RootState } from "../store";
-import { Task } from "../types";
+import { Task, TaskStatus } from "../types";
 
 const TaskManager = () => {
   const dispatch = useDispatch();
   const tasks = useSelector((state: RootState) => state.tasks);
   const [newTaskTitle, setNewTaskTitle] = useState<string>("");
   const [newTaskDescription, setNewTaskDescription] = useState<string>("");
+  const [filter, setFilter] = useState<TaskStatus | "ALL">("ALL");
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
 
   const handleAddTask = () => {
-    dispatch(addTask({ title: newTaskTitle, description: newTaskDescription }));
-    setNewTaskTitle("");
-    setNewTaskDescription("");
+    if (newTaskTitle.trim() && newTaskDescription.trim()) {
+      dispatch(
+        addTask({ title: newTaskTitle, description: newTaskDescription })
+      );
+      setNewTaskTitle("");
+      setNewTaskDescription("");
+    }
   };
 
   const handleToggleTask = (id: number, status: string) => {
@@ -23,6 +37,13 @@ const TaskManager = () => {
   const handleDeleteTask = (id: number) => {
     dispatch(deleteTask(id));
   };
+
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "IN_PROGRESS") return task.status === "IN_PROGRESS";
+    if (filter === "DONE") return task.status === "DONE";
+    if (filter === "ALL") return task;
+    return true;
+  });
 
   return (
     <div className="bg-white shadow-md rounded-md p-4 max-w-md mx-auto">
@@ -43,7 +64,15 @@ const TaskManager = () => {
         <button onClick={handleAddTask}>Add Task</button>
       </div>
       <div className="mb-4">
-        {tasks.map((task: Task) => (
+        <select
+          value={filter}
+          onChange={(e) => setFilter(e.target.value as TaskStatus | "ALL")}
+        >
+          <option value="ALL">All</option>
+          <option value="IN_PROGRESS">In Progress</option>
+          <option value="DONE">Done</option>
+        </select>
+        {filteredTasks.map((task: Task) => (
           <li key={task.id}>
             <div>
               <input
