@@ -5,7 +5,7 @@ import { store } from "./store";
 function App() {
   return (
     <Provider store={store}>
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="container">
         <TaskManager />
       </div>
     </Provider>

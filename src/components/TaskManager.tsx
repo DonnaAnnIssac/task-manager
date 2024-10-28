@@ -46,24 +46,28 @@ const TaskManager = () => {
   });
 
   return (
-    <div className="bg-white shadow-md rounded-md p-4 max-w-md mx-auto">
-      <h1 className="text-xl font-bold mb-4">Task Manager</h1>
-      <div className="flex mb-4">
+    <div className="task-manager-container">
+      <h1 className="task-manager-header">Task Manager</h1>
+      <div className="task-manager-input">
         <input
           type="text"
           value={newTaskTitle}
           onChange={(e) => setNewTaskTitle(e.target.value)}
           placeholder="Add New Task Title here"
+          className="task-manager-input-field"
         />
         <input
           type="text"
           value={newTaskDescription}
           onChange={(e) => setNewTaskDescription(e.target.value)}
           placeholder="Add New Task Description here"
+          className="task-manager-input-field"
         />
-        <button onClick={handleAddTask}>Add Task</button>
+        <button onClick={handleAddTask} className="task-manager-add-button">
+          Add Task
+        </button>
       </div>
-      <div className="mb-4">
+      <div className="tasks-list">
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value as TaskStatus | "ALL")}
