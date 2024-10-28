@@ -6,19 +6,19 @@ import {
   toggleTask,
   fetchTasks,
 } from "../store/taskSlice";
-import { RootState } from "../store";
+import { AppDispatch, RootState } from "../store";
 import { Task, TaskStatus } from "../types";
 
 const TaskManager = () => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const tasks = useSelector((state: RootState) => state.tasks);
   const [newTaskTitle, setNewTaskTitle] = useState<string>("");
   const [newTaskDescription, setNewTaskDescription] = useState<string>("");
   const [filter, setFilter] = useState<TaskStatus | "ALL">("ALL");
 
   useEffect(() => {
-    fetchTasks();
-  }, []);
+    dispatch(fetchTasks());
+  }, [dispatch]);
 
   const handleAddTask = () => {
     if (newTaskTitle.trim() && newTaskDescription.trim()) {
